@@ -7,52 +7,155 @@
 
     <title>K-pop Album Tracker</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scrollbar-gutter: stable;
+        }
+    
+        .navbar-scroll {
+            scrollbar-width: none;
+        }
+    
+        .navbar-scroll::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="K logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-950 text-white min-h-screen">
+    <!-- ACCOUNT SYSTEM -->
+    <div id="auth-page" class="min-h-screen flex items-center justify-center">
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 w-full max-w-md">
 
-    <!-- Navigation -->
-    <nav class="bg-gray-900 border-b border-gray-800 p-4">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center gap-3">
-
-            <h1 class="text-2xl font-bold text-pink-500 mr-6">
+            <h1 class="text-3xl font-bold text-white text-center mb-2">
                 🎵 K-pop Album Tracker
             </h1>
 
-            <button class="nav-button" data-page="home">
-                🏠 Home
-            </button>
+            <p class="text-gray-400 text-center mb-6">
+                Log in or create an account
+            </p>
 
-            <button class="nav-button" data-page="wishlist">
-                💿 Wishlist
-            </button>
+            <!-- LOGIN -->
+            <div id="login-form">
 
-            <button class="nav-button" data-page="favorites">
-                ⭐ Favorites
-            </button>
+                <h2 class="text-xl font-bold text-white mb-4">
+                    Log in
+                </h2>
 
-            <button class="nav-button" data-page="balance">
-                💰 Balance
-            </button>
+                <input id="login-username" type="text" placeholder="Username"
+                    class="w-full mb-3 p-3 rounded-lg bg-gray-800 text-white">
 
-            <button class="nav-button" data-page="stores">
-                🏪 Stores
-            </button>
+                <input id="login-password" type="password" placeholder="Password"
+                    class="w-full mb-3 p-3 rounded-lg bg-gray-800 text-white">
 
-            <button class="nav-button" data-page="calendar">
-                📅 Calendar
-            </button>
+                <button id="login-button"
+                    class="w-full px-4 py-3 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-bold">
+                    Log in
+                </button>
+
+                <p id="login-message" class="text-red-400 text-center mt-3"></p>
+
+                <button id="show-register" class="w-full mt-4 text-pink-400 hover:text-pink-300">
+                    Don't have an account? Create one
+                </button>
+
+            </div>
+
+            <!-- REGISTER -->
+
+            <div id="register-form" class="hidden">
+
+                <h2 class="text-xl font-bold text-white mb-4">
+                    Create account
+                </h2>
+
+                <input id="register-username" type="text" placeholder="Username"
+                    class="w-full mb-3 p-3 rounded-lg bg-gray-800 text-white">
+
+                <input id="register-password" type="password" placeholder="Password"
+                    class="w-full mb-3 p-3 rounded-lg bg-gray-800 text-white">
+
+                <input id="register-password-confirm" type="password" placeholder="Confirm password"
+                    class="w-full mb-3 p-3 rounded-lg bg-gray-800 text-white">
+
+                <button id="register-button"
+                    class="w-full px-4 py-3 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-bold">
+                    Create account
+                </button>
+
+                <p id="register-message" class="text-red-400 text-center mt-3"></p>
+
+                <button id="show-login" class="w-full mt-4 text-pink-400 hover:text-pink-300">
+                    Already have an account? Log in
+                </button>
+
+            </div>
 
         </div>
+    </div>
+    
+    
+    <!-- Navigation -->
+    <nav id="nav" class="hidden bg-gray-900 border-b border-gray-800 overflow-x-auto navbar-scroll">
+    
+        <div class="w-max min-w-full px-4 h-16 flex items-center gap-3">
+    
+            <h1 class="text-2xl font-bold text-pink-500 mr-6 whitespace-nowrap flex-shrink-0">
+                🎵 K-pop Album Tracker
+            </h1>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="home">
+                🏠 Home
+            </button>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="wishlist">
+                💿 Albums
+            </button>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="favorites">
+                ⭐ Favorites
+            </button>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="balance">
+                💰 Balance
+            </button>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="affordables">
+                🎯 Affordables
+            </button>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="owned">
+                📦 Owned
+            </button>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="stores">
+                🏪 Stores
+            </button>
+            
+            <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="calendar">
+                📅 Calendar
+            </button>
+            
+            <a href="https://chatgpt.com/share/6a7f2e86-de70-83eb-83cf-6f2c3431ccc1" target="_blank"
+                class="nav-button whitespace-nowrap flex-shrink-0">
+                ⚙️ ChatGPT
+            </a>
+            
+            <button id="logout-button"
+                class="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-bold whitespace-nowrap flex-shrink-0">
+                Log out
+            </button>
+            
+        </div>
+            
     </nav>
 
 
     <!-- Main content -->
-    <main class="max-w-7xl mx-auto p-6">
-
+    <main id="app" class="max-w-7xl mx-auto p-4">
 
         <!-- ==================== HOME ==================== -->
 
@@ -65,7 +168,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
                 <!-- Balance -->
-                <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5">
+                <div data-page="balance" class="dashboard-card cursor-pointer bg-gray-900 border border-gray-700 rounded-2xl p-5 hover:border-pink-500 transition">
 
                     <p class="text-gray-400">
                         💰 Balance
@@ -82,10 +185,10 @@
 
 
                 <!-- Wishlist -->
-                <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5">
+                <div data-page="wishlist" class="dashboard-card cursor-pointer bg-gray-900 border border-gray-700 rounded-2xl p-5 hover:border-pink-500 transition">
 
                     <p class="text-gray-400">
-                        💿 Wishlist
+                        💿 Albums
                     </p>
 
                     <p
@@ -98,7 +201,7 @@
                 </div>
 
                 <!-- Favorites -->
-                <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5">
+                <div data-page="favorites" class="dashboard-card cursor-pointer bg-gray-900 border border-gray-700 rounded-2xl p-5 hover:border-pink-500 transition">
                     <p class="text-gray-400">⭐ Favorites</p>
                     <p id="dashboard-favorites" class="text-2xl font-bold mt-2">
                         0 albums
@@ -107,7 +210,7 @@
 
 
                 <!-- Affordable -->
-                <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5">
+                <div data-page="affordables" class="dashboard-card cursor-pointer bg-gray-900 border border-gray-700 rounded-2xl p-5 hover:border-pink-500 transition">
 
                     <p class="text-gray-400">
                         🎯 Affordable
@@ -124,7 +227,7 @@
 
 
                 <!-- Owned -->
-                <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5">
+                <div data-page="owned" class="dashboard-card cursor-pointer bg-gray-900 border border-gray-700 rounded-2xl p-5 hover:border-pink-500 transition">
 
                     <p class="text-gray-400">
                         🛒 Owned
@@ -150,46 +253,45 @@
         <section id="page-wishlist" class="page hidden">
 
             <h2 class="text-3xl font-bold mb-2">
-                💿 Wishlist
+                💿 Albums
             </h2>
 
             <p class="text-gray-400 mb-6">
-                Albums you're planning to buy.
+                Albums you're planning to buy!
             </p>
 
+            <div id="albums-controls">
                 <!-- Search -->
                 <div class="mb-4">
                     <input id="album-search" type="text" placeholder="🔍 Search albums, artists, versions..."
                     class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition">
                 </div>
-
-
-            <!-- Sorting -->
-            <div class="flex items-center gap-3 mb-6">
-
-                <label
-                    for="sort-albums"
-                    class="text-gray-300 font-semibold"
-                >
-                    Sort:
-    </label>
-
-    <select id="sort-albums"
-        class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-pink-500 text-left leading-normal">
-        <option value="default">Default</option>
-        <option value="price-low">Price: Low → High</option>
-        <option value="price-high">Price: High → Low</option>
-        <option value="artist">Artist: A → Z</option>
-        <option value="artist-reverse">Artist: Z → A</option>
-        <option value="affordable">Affordable First</option>
-        <option value="favorites">Favorites First</option>
-    </select>
-    </div>
+                
+                
+                <!-- Sorting -->
+                <div class="flex items-center gap-3 mb-6">
+                
+                    <label for="sort-albums" class="text-gray-300 font-semibold">
+                        Sort:
+                    </label>
+                
+                    <select id="sort-albums"
+                        class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-pink-500 text-left leading-normal">
+                        <option value="default">Default</option>
+                        <option value="price-low">Price: Low → High</option>
+                        <option value="price-high">Price: High → Low</option>
+                        <option value="artist">A → Z</option>
+                        <option value="artist-reverse">Z → A</option>
+                        <option value="affordable">Affordable First</option>
+                        <option value="favorites">Favorites First</option>
+                    </select>
+                </div>
+            </div>
 
 
             <!-- Album grid -->
             <div
-                id="album-grid"
+                id="albums-grid"
                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             ></div>
 
@@ -207,57 +309,161 @@
             <p class="text-gray-400 mb-6">
                 Albums you've marked as favorites.
             </p>
+
+            <div id="favorites-controls">
+                <!-- Search -->
+                <div class="mb-4">
+                    <input id="favorite-search" type="text" placeholder="🔍 Search albums, artists, versions..."
+                    class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition">
+                </div>
+                
+                <!-- Sorting -->
+                <div class="flex items-center gap-3 mb-6">
+                
+                    <label for="favorite-sort" class="text-gray-300 font-semibold">
+                        Sort:
+                    </label>
+                
+                    <select id="favorite-sort"
+                        class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-pink-500 text-left leading-normal">
+                        <option value="default">Default</option>
+                        <option value="price-low">Price: Low → High</option>
+                        <option value="price-high">Price: High → Low</option>
+                        <option value="artist">A → Z</option>
+                        <option value="artist-reverse">Z → A</option>
+                        <option value="affordable">Affordable First</option>
+                    </select>
+                </div>
+            </div>
         
             <div id="favorites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         
         </section>
 
-
-
+        
+        <!-- AFFORDABLES -->
+        <section id="page-affordables" class="page hidden" data-page="affordables">
+        
+            <div class="mb-6">
+        
+                <h1 class="text-3xl font-bold text-white mb-2">
+                    🎯 Affordables
+                </h1>
+        
+                <p class="text-gray-400 mb-6">
+                    Albums you can currently afford
+                </p>
+        
+                <div id="affordables-controls">
+                    <!-- Search -->
+                    <div class="mb-4">
+                        <input id="affordable-search" type="text" placeholder="🔍 Search albums, artists, versions..."
+                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition">
+                    </div>
+        
+                    <!-- Sorting -->
+                    <div class="flex items-center gap-3 mb-6">
+                        <label for="affordables-sort" class="text-gray-300 font-semibold">
+                            Sort:
+                        </label>
+        
+                        <select id="affordables-sort"
+                            class="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-pink-500 text-left leading-normal">
+                            <option value="default">Default</option>
+                            <option value="price-low">Price: Low → High</option>
+                            <option value="price-high">Price: High → Low</option>
+                            <option value="artist">A → Z</option>
+                            <option value="artist-reverse">Z → A</option>
+                            <option value="favorites">Favorites First</option>
+                        </select>
+                    </div>
+                </div>
+        
+            </div>
+        
+            <!-- Affordable Albums -->
+            <div id="affordables-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        
+        </section>
+        
+        
+        <!-- ==================== OWNED ==================== -->
+        <section id="page-owned" class="page hidden">
+        
+            <h2 class="text-3xl font-bold mb-2">
+                📦 Owned Albums
+            </h2>
+        
+            <p class="text-gray-400 mb-6">
+                Albums in your collection.
+            </p>
+        
+            <div id="owned-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        
+        </section>
+        
+        
+        
         <!-- ==================== BALANCE ==================== -->
-
+        
         <section id="page-balance" class="page hidden">
-
+        
             <h2 class="text-3xl font-bold mb-6">
                 💰 Balance
             </h2>
-
-
+        
+        
             <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 max-w-xl">
-
+        
                 <p class="text-gray-400">
                     Current balance
                 </p>
-
-                <p
-                    id="balance-display"
-                    class="text-4xl font-bold text-pink-500 mt-2"
-                >
+        
+                <p id="balance-display" class="text-4xl font-bold text-pink-500 mt-2">
                     ֏0
                 </p>
-
-
-                <div class="mt-6 flex gap-3">
-
-                    <input
-                        id="balance-input"
-                        type="text"
-                        inputmode="numeric"
-                        placeholder="Enter balance in AMD"
-                        class="flex-1 px-4 py-3 rounded-lg text-black"
-                    >
-
-                    <button
-                        id="save-balance"
-                        class="bg-pink-500 px-5 py-3 rounded-lg font-bold hover:bg-pink-600"
-                    >
-                        Save
-                    </button>
-
+        
+        
+                <div class="mt-6 space-y-4">
+        
+                    <!-- Money Received -->
+                    <div>
+                        <label class="block text-white font-bold mb-2">
+                            💵 Money Received
+                        </label>
+        
+                        <div class="flex gap-2">
+                            <input type="text" id="money-received" min="0" placeholder="Amount received"
+                                class="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white">
+        
+                            <button type="button" id="add-money"
+                                class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-bold transition">
+                                + Add
+                            </button>
+                        </div>
+                    </div>
+        
+                    <!-- Money Spent -->
+                    <div>
+                        <label class="block text-white font-bold mb-2">
+                            💸 Money Spent
+                        </label>
+        
+                        <div class="flex gap-2">
+                            <input type="text" id="money-spent" min="0" placeholder="Amount spent"
+                                class="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white">
+        
+                            <button type="button" id="spend-money"
+                                class="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-bold transition">
+                                − Spend
+                            </button>
+                        </div>
+                    </div>
+        
                 </div>
-
+        
             </div>
-
+        
         </section>
 
 
