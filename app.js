@@ -1463,20 +1463,41 @@ async function displayAffordables() {
 // -- OWNED ALBUMS --
 const ownedGrid = document.getElementById("owned-grid");
 
-function markAsOwned(id) {
+async function markAsOwned(id) {
     const account = getCurrentAccount();
     const album = albums.find(album => album.id === id);
 
     if (!account || !album || album.bought) return;
+
+    const exchangeRate = await getExchangeRate();
+
+    const totalAMD =
+        (album.price + album.delivery) * exchangeRate;
+
+    // Don't allow buying if there's not enough money
+    if (balance < totalAMD) return;
 
     if (!Array.isArray(account.owned)) {
         account.owned = [];
     }
 
     account.owned.push(id);
+
+    // Mark as owned
     album.bought = true;
+
+    // Subtract album cost
+    balance -= totalAMD;
+
+    // Save new balance
+    account.balance = balance;
+
     saveAccounts();
+
+    // Update everything
     updateDashboardCounts();
+    updateBalanceDisplay();
+    updateBalanceUI();
     displayAlbums();
     displayOwned();
     displayFavorites();
@@ -1484,11 +1505,16 @@ function markAsOwned(id) {
     updateDashboardAffordable();
 }
 
-function markAsNotOwned(id) {
+async function markAsNotOwned(id) {
     const account = getCurrentAccount();
     const album = albums.find(album => album.id === id);
 
     if (!account || !album) return;
+
+    const exchangeRate = await getExchangeRate();
+
+    const totalAMD =
+        (album.price + album.delivery) * exchangeRate;
 
     if (!Array.isArray(account.owned)) {
         account.owned = [];
@@ -1499,15 +1525,24 @@ function markAsNotOwned(id) {
         albumId => albumId !== id
     );
 
-    // Update the album itself
+    // Mark as not owned
     album.bought = false;
+
+    // Return album cost to balance
+    balance += totalAMD;
+
+    // Save new balance
+    account.balance = balance;
 
     // Refresh everything
     saveAccounts();
 
+    // Update everything
     updateDashboardCounts();
+    updateBalanceDisplay();
+    updateBalanceUI();
     displayAlbums();
-    displayOwned()
+    displayOwned();
     displayFavorites();
     displayAffordables();
     updateDashboardAffordable();
