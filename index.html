@@ -21,7 +21,9 @@
         }
     </style>
 
-    <link rel="icon" type="image/png" href="K logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ec4899">
+    <link rel="icon" type="image/png" href="Logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -102,9 +104,11 @@
     <nav id="nav" class="hidden bg-gray-900 border-b border-gray-800 overflow-x-auto navbar-scroll">
     
         <div class="w-max min-w-full px-4 h-16 flex items-center gap-3">
+
+            <img src="Transparent Logo.png" alt="" class="w-14 h-14 object-contain">
     
-            <h1 class="text-2xl font-bold text-pink-500 mr-6 whitespace-nowrap flex-shrink-0">
-                🎵 K-pop Album Tracker
+            <h1 class="text-2xl font-bold text-[rgb(220,178,245)] mr-6 whitespace-nowrap flex-shrink-0">
+                K-pop Album Tracker
             </h1>
             
             <button class="nav-button whitespace-nowrap flex-shrink-0" data-page="home">
