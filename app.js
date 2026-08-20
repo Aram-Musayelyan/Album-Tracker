@@ -1545,7 +1545,11 @@ function displayOwned() {
             ${album.member ? `(${album.member})` : ""}
         </h2>
 
-            <img src="${album.img}" alt="${album.artist} ${album.name}" class="w-full rounded-xl mb-4">
+            <img
+                src="${album.img}"
+                alt="${album.artist} ${album.name} ${album.version}"
+                class="w-full rounded-xl mt-3 mb-4"
+            >
             <p class="font-bold text-green-400">✅ Owned</p>
             <button
                 type="button"
