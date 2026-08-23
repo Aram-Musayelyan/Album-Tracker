@@ -1,8 +1,17 @@
-const CACHE_NAME = "kpop-album-tracker-v2";
+const CACHE_NAME = "kpop-album-tracker-v3";
 
 const FILES_TO_CACHE = [
     "./",
-    "./index.html",
+    "./Pages/index.html",
+    "./Pages/affordables.html",
+    "./Pages/albums.html",
+    "./Pages/balance.html",
+    "./Pages/calendar.html",
+    "./Pages/favorites.html",
+    "./Pages/login.html",
+    "./Pages/owned.html",
+    "./Pages/signup.html",
+    "./Pages/stores.html",
     "./manifest.json",
     "./Logo.png",
     "./Transparent Logo.png",

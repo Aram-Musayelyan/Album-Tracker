@@ -3,6 +3,9 @@
 const authPage = document.getElementById("auth-page");
 const app = document.getElementById("app");
 const nav = document.getElementById("nav");
+const pageFile = window.location.pathname.split("/").pop() || "index.html";
+const currentPage = document.body.dataset.page || pageFile.replace(".html", "");
+const isAuthPage = currentPage === "login" || currentPage === "signup";
 
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
@@ -44,103 +47,110 @@ let balance = 0;
 // -------------------- AUTH UI --------------------
 
 function showLoginForm() {
-    loginForm.classList.remove("hidden");
-    registerForm.classList.add("hidden");
+    if (loginForm) loginForm.classList.remove("hidden");
+    if (registerForm) registerForm.classList.add("hidden");
 
-    loginMessage.textContent = "";
-    registerMessage.textContent = "";
+    if (loginMessage) loginMessage.textContent = "";
+    if (registerMessage) registerMessage.textContent = "";
 }
 
 function showRegisterForm() {
-    loginForm.classList.add("hidden");
-    registerForm.classList.remove("hidden");
+    if (loginForm) loginForm.classList.add("hidden");
+    if (registerForm) registerForm.classList.remove("hidden");
 
-    loginMessage.textContent = "";
-    registerMessage.textContent = "";
+    if (loginMessage) loginMessage.textContent = "";
+    if (registerMessage) registerMessage.textContent = "";
 }
 
 // -------------------- CREATE ACCOUNT --------------------
 
-registerButton.addEventListener("click", () => {
+if (registerButton) {
+    registerButton.addEventListener("click", () => {
 
-    const username = registerUsername.value.trim();
-    const password = registerPassword.value;
-    const confirmPassword = registerPasswordConfirm.value;
+        const username = registerUsername.value.trim();
+        const password = registerPassword.value;
+        const confirmPassword = registerPasswordConfirm.value;
 
-    registerMessage.className =
-        "text-red-400 text-center mt-3";
+        registerMessage.className =
+            "text-red-400 text-center mt-3";
 
-    if (!username || !password || !confirmPassword) {
+        if (!username || !password || !confirmPassword) {
+            registerMessage.textContent =
+                "Please fill in all fields.";
+            return;
+        }
+
+        if (username.length < 3) {
+            registerMessage.textContent =
+                "Username must be at least 3 characters.";
+            return;
+        }
+
+        if (password.length < 4) {
+            registerMessage.textContent =
+                "Password must be at least 4 characters.";
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            registerMessage.textContent =
+                "Passwords do not match.";
+            return;
+        }
+
+        const usernameExists = accounts.some(
+            account =>
+                account.username.toLowerCase() === username.toLowerCase()
+        );
+
+        if (usernameExists) {
+            registerMessage.textContent =
+                "That username is already taken.";
+            return;
+        }
+
+        const newAccount = {
+            username: username,
+            password: password,
+
+            balance: 0,
+            favorites: [],
+            owned: [],
+            calendarEvents: []
+        };
+
+        accounts.push(newAccount);
+        saveAccounts();
+        console.log("Saved accounts:", accounts);
+        console.log("LocalStorage:", localStorage.getItem("accounts"));
+
+        registerMessage.className =
+            "text-green-400 text-center mt-3";
+
         registerMessage.textContent =
-            "Please fill in all fields.";
-        return;
-    }
+            "Account created! You can now log in.";
 
-    if (username.length < 3) {
-        registerMessage.textContent =
-            "Username must be at least 3 characters.";
-        return;
-    }
-
-    if (password.length < 4) {
-        registerMessage.textContent =
-            "Password must be at least 4 characters.";
-        return;
-    }
-
-    if (password !== confirmPassword) {
-        registerMessage.textContent =
-            "Passwords do not match.";
-        return;
-    }
-
-    const usernameExists = accounts.some(
-        account =>
-            account.username.toLowerCase() === username.toLowerCase()
-    );
-
-    if (usernameExists) {
-        registerMessage.textContent =
-            "That username is already taken.";
-        return;
-    }
-
-    const newAccount = {
-        username: username,
-        password: password,
-
-        balance: 0,
-        favorites: [],
-        owned: [],
-        calendarEvents: []
-    };
-
-    accounts.push(newAccount);
-    saveAccounts();
-    console.log("Saved accounts:", accounts);
-    console.log("LocalStorage:", localStorage.getItem("accounts"));
-
-    registerMessage.className =
-        "text-green-400 text-center mt-3";
-
-    registerMessage.textContent =
-        "Account created! You can now log in.";
-
-    registerUsername.value = "";
-    registerPassword.value = "";
-    registerPasswordConfirm.value = "";
-});
+        registerUsername.value = "";
+        registerPassword.value = "";
+        registerPasswordConfirm.value = "";
+    });
+}
 
 // -------------------- LOG IN --------------------
-
 function enterApp() {
-    authPage.classList.add("hidden");
-    nav.classList.remove("hidden");
-    app.classList.remove("hidden");
+    if (authPage) {
+        authPage.classList.add("hidden");
+    }
 
-    console.log(
-        `Logged in as ${currentUser}`
-    );
+    if (nav) {
+        nav.classList.remove("hidden");
+    }
+
+    if (app) {
+        app.classList.remove("hidden");
+    }
+
+    console.log(`Logged in as ${currentUser}`);
 }
 
 function getCurrentAccount() {
@@ -207,58 +217,51 @@ function loadCurrentUserData() {
     console.log("Balance:", balance);
 }
 
-loginButton.addEventListener("click", () => {
-    const username = loginUsername.value.trim();
-    const password = loginPassword.value;
+if (loginButton) {
+    loginButton.addEventListener("click", () => {
+        const username = loginUsername.value.trim();
+        const password = loginPassword.value;
 
-    loginMessage.className = "text-red-400 text-center mt-3";
+        loginMessage.className = "text-red-400 text-center mt-3";
 
-    if (!username || !password) {
-        loginMessage.textContent =
-            "Please enter your username and password.";
-        return;
-    }
+        if (!username || !password) {
+            loginMessage.textContent =
+                "Please enter your username and password.";
+            return;
+        }
 
-    console.log("Attempting login:", username);
-    console.log("Stored accounts:", accounts);
+        console.log("Attempting login:", username);
+        console.log("Stored accounts:", accounts);
 
-    const account = accounts.find(account => {
-        return (
-            String(account.username).trim().toLowerCase() ===
-            username.toLowerCase() &&
-            String(account.password) === password
-        );
+        const account = accounts.find(account => {
+            return (
+                String(account.username).trim().toLowerCase() ===
+                username.toLowerCase() &&
+                String(account.password) === password
+            );
+        });
+
+        console.log("Matching account:", account);
+
+        if (!account) {
+            loginMessage.textContent =
+                "Incorrect username or password.";
+            return;
+        }
+
+        currentUser = account.username;
+
+        localStorage.setItem("currentUser", currentUser);
+
+        loadCurrentUserData();
+
+        loginUsername.value = "";
+        loginPassword.value = "";
+        loginMessage.textContent = "";
+
+        window.location.assign("index.html");
     });
-
-    console.log("Matching account:", account);
-
-    if (!account) {
-        loginMessage.textContent =
-            "Incorrect username or password.";
-        return;
-    }
-
-    currentUser = account.username;
-
-    localStorage.setItem("currentUser", currentUser);
-
-    loadCurrentUserData();
-
-    loginUsername.value = "";
-    loginPassword.value = "";
-    loginMessage.textContent = "";
-
-    enterApp();
-
-    updateBalanceDisplay();
-    updateBalanceUI();
-    displayAlbums();
-    displayFavorites();
-    displayOwned();
-    displayCalendarEvents();
-    displayAffordables();
-    updateDashboardAffordable();
-});
+}
 
 // -------------------- LOG OUT --------------------
 
@@ -268,34 +271,33 @@ function logout() {
 
     currentUser = null;
 
-    nav.classList.add("hidden");
-    app.classList.add("hidden");
-
-    authPage.classList.remove("hidden");
-
-    showLoginForm();
-
-    console.log("Logged out.");
+    window.location.assign("login.html");
 }
 
 const logoutButton = document.getElementById("logout-button");
 
-logoutButton.addEventListener("click", logout);
+if (logoutButton) {
+    logoutButton.addEventListener("click", logout);
+}
 
 // Make logout available to HTML onclick=""
 window.logout = logout;
 
 // -------------------- SWITCH FORMS --------------------
 
-showRegister.addEventListener(
-    "click",
-    showRegisterForm
-);
+if (showRegister) {
+    showRegister.addEventListener(
+        "click",
+        () => window.location.assign("signup.html")
+    );
+}
 
-showLogin.addEventListener(
-    "click",
-    showLoginForm
-);
+if (showLogin) {
+    showLogin.addEventListener(
+        "click",
+        () => window.location.assign("login.html")
+    );
+}
 
 // -- ALBUMS --
 const albums = [
@@ -911,6 +913,8 @@ let favoritesRenderVersion = 0;
 
 async function displayFavorites() {
 
+    if (!favoritesGrid) return;
+
     const renderingUser = currentUser;
     const thisRender = ++favoritesRenderVersion;
 
@@ -928,10 +932,12 @@ async function displayFavorites() {
     let favoriteAlbums = albums.filter(album => album.favorite);
 
     // Show/hide controls based on whether favorites EXIST
-    if (favoriteAlbums.length === 0) {
-        favoritesControls.classList.add("hidden");
-    } else {
-        favoritesControls.classList.remove("hidden");
+    if (favoritesControls) {
+        if (favoriteAlbums.length === 0) {
+            favoritesControls.classList.add("hidden");
+        } else {
+            favoritesControls.classList.remove("hidden");
+        }
     }
 
     // Copy favorites for search + sorting
@@ -1244,6 +1250,9 @@ window.toggleFavorite = toggleFavorite;
 
 // -- AFFORDABLE --
 async function displayAffordables() {
+
+    if (!affordablesGrid) return;
+
     const renderingUser = currentUser;
 
     if (!renderingUser) return;
@@ -1265,10 +1274,12 @@ async function displayAffordables() {
     });
 
     // Show/hide controls based on whether affordable albums EXIST
-    if (affordableAlbums.length === 0) {
-        affordablesControls.classList.add("hidden");
-    } else {
-        affordablesControls.classList.remove("hidden");
+    if (affordablesControls) {
+        if (affordableAlbums.length === 0) {
+            affordablesControls.classList.add("hidden");
+        } else {
+            affordablesControls.classList.remove("hidden");
+        }
     }
 
     // Copy affordable albums for search + sorting
@@ -1552,6 +1563,7 @@ window.markAsNotOwned = markAsNotOwned;
 
 function displayOwned() {
     if (!currentUser) return;
+    if (!ownedGrid) return;
 
     const ownedAlbums = albums.filter(album => album.bought);
     ownedGrid.innerHTML = "";
@@ -1617,86 +1629,100 @@ const balanceDisplay =
     document.getElementById("balance-display");
 
 function updateBalanceDisplay() {
-    balanceDisplay.textContent = `Balance: ֏${balance.toLocaleString()}`;
+    if (balanceDisplay) {
+        balanceDisplay.textContent =
+            `Balance: ֏${balance.toLocaleString()}`;
+    }
 }
 
 function updateBalanceUI() {
-    document.getElementById("balance-display").textContent =
-        `֏${balance.toLocaleString()}`;
+    const balanceDisplay = document.getElementById("balance-display");
+    const dashboardBalance = document.getElementById("dashboard-balance");
 
-    document.getElementById("dashboard-balance").textContent =
-        `֏${balance.toLocaleString()}`;
+    if (balanceDisplay) {
+        balanceDisplay.textContent =
+            `֏${balance.toLocaleString()}`;
+    }
+
+    if (dashboardBalance) {
+        dashboardBalance.textContent =
+            `֏${balance.toLocaleString()}`;
+    }
 }
 
 // -------------------- MONEY RECEIVED --------------------
 
-addMoneyButton.addEventListener("click", () => {
+if (addMoneyButton) {
+    addMoneyButton.addEventListener("click", () => {
 
-    const account = getCurrentAccount();
+        const account = getCurrentAccount();
 
-    if (!account) return;
+        if (!account) return;
 
-    const amount = Number(moneyReceivedInput.value);
+        const amount = Number(moneyReceivedInput.value);
 
-    if (!Number.isFinite(amount) || amount <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-    }
+        if (!Number.isFinite(amount) || amount <= 0) {
+            alert("Please enter a valid amount.");
+            return;
+        }
 
-    balance += amount;
+        balance += amount;
 
-    account.balance = balance;
+        account.balance = balance;
 
-    saveAccounts();
+        saveAccounts();
 
-    moneyReceivedInput.value = "";
+        moneyReceivedInput.value = "";
 
-    updateBalanceDisplay();
-    updateBalanceUI();
+        updateBalanceDisplay();
+        updateBalanceUI();
 
-    displayFavorites();
-    displayAlbums();
-    displayAffordables();
-    updateDashboardAffordable();
-});
+        displayFavorites();
+        displayAlbums();
+        displayAffordables();
+        updateDashboardAffordable();
+    });
+}
 
 
 // -------------------- MONEY SPENT --------------------
 
-spendMoneyButton.addEventListener("click", () => {
+if (spendMoneyButton) {
+    spendMoneyButton.addEventListener("click", () => {
 
-    const account = getCurrentAccount();
+        const account = getCurrentAccount();
 
-    if (!account) return;
+        if (!account) return;
 
-    const amount = Number(moneySpentInput.value);
+        const amount = Number(moneySpentInput.value);
 
-    if (!Number.isFinite(amount) || amount <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-    }
+        if (!Number.isFinite(amount) || amount <= 0) {
+            alert("Please enter a valid amount.");
+            return;
+        }
 
-    if (amount > balance) {
-        alert("You don't have enough money.");
-        return;
-    }
+        if (amount > balance) {
+            alert("You don't have enough money.");
+            return;
+        }
 
-    balance -= amount;
+        balance -= amount;
 
-    account.balance = balance;
+        account.balance = balance;
 
-    saveAccounts();
+        saveAccounts();
 
-    moneySpentInput.value = "";
+        moneySpentInput.value = "";
 
-    updateBalanceDisplay();
-    updateBalanceUI();
+        updateBalanceDisplay();
+        updateBalanceUI();
 
-    displayFavorites();
-    displayAlbums();
-    displayAffordables();
-    updateDashboardAffordable();
-});
+        displayFavorites();
+        displayAlbums();
+        displayAffordables();
+        updateDashboardAffordable();
+    });
+}
 
 
 // -- EXCHANGE --
@@ -1736,6 +1762,8 @@ const affordableSearch = document.getElementById("affordable-search");
 let albumsRenderVersion = 0;
 
 async function displayAlbums() {
+
+    if (!albumGrid) return;
 
     const renderingUser = currentUser;
     const thisRender = ++albumsRenderVersion;
@@ -1982,61 +2010,40 @@ async function displayAlbums() {
     });
 }
 
-sortAlbums.addEventListener("change", displayAlbums);
-favoriteSort.addEventListener("change", displayFavorites);
-affordableSort.addEventListener("change", displayAffordables);
-
-albumSearch.addEventListener("input", displayAlbums);
-favoriteSearch.addEventListener("input", displayFavorites);
-affordableSearch.addEventListener("input", displayAffordables);
-
-
-// -- NAVIGATION --
-const navButtons = document.querySelectorAll(".nav-button");
-const dashboardCards = document.querySelectorAll(".dashboard-card");
-const pages = document.querySelectorAll(".page");
-
-function showPage(pageName) {
-    pages.forEach((page) => {
-        page.classList.add("hidden");
-    });
-
-    document
-        .getElementById(`page-${pageName}`)
-        .classList.remove("hidden");
-
-    if (pageName === "affordables" && currentUser) {
-        displayAffordables();
-    }
+if (sortAlbums) {
+    sortAlbums.addEventListener("change", displayAlbums);
 }
 
-document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && currentUser) {
-        showPage("home");
-    }
-});
+if (favoriteSort) {
+    favoriteSort.addEventListener("change", displayFavorites);
+}
 
-navButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        showPage(button.dataset.page);
-    });
-});
+if (affordableSort) {
+    affordableSort.addEventListener("change", displayAffordables);
+}
 
-dashboardCards.forEach((card) => {
-    card.addEventListener("click", () => {
-        showPage(card.dataset.page);
-    });
-});
+if (albumSearch) {
+    albumSearch.addEventListener("input", displayAlbums);
+}
+
+if (favoriteSearch) {
+    favoriteSearch.addEventListener("input", displayFavorites);
+}
+
+if (affordableSearch) {
+    affordableSearch.addEventListener("input", displayAffordables);
+}
 
 
 // -- Calendar --
-
 let calendarEvents = [];
 
 function displayCalendarEvents() {
 
     const eventsContainer =
         document.getElementById("calendar-events");
+
+    if (!eventsContainer) return;
 
     eventsContainer.innerHTML = "";
 
@@ -2122,69 +2129,118 @@ function displayCalendarEvents() {
 }
 
 
-document.getElementById("add-event").addEventListener("click", () => {
+const addEventButton = document.getElementById("add-event");
 
-    const name =
-        document.getElementById("event-name").value.trim();
+if (addEventButton) {
+    addEventButton.addEventListener("click", () => {
 
-    const date =
-        document.getElementById("event-date").value;
+        const name =
+            document.getElementById("event-name").value.trim();
 
-    const amount =
-        document.getElementById("event-amount").value.trim();
+        const date =
+            document.getElementById("event-date").value;
 
-    if (!name || !date) {
-        alert("Please enter an event name and date.");
-        return;
-    }
+        const amount =
+            document.getElementById("event-amount").value.trim();
 
-    calendarEvents.push({
-        name: name,
-        date: date,
-        amount: amount
+        if (!name || !date) {
+            alert("Please enter an event name and date.");
+            return;
+        }
+
+        calendarEvents.push({
+            name: name,
+            date: date,
+            amount: amount
+        });
+
+        const account = getCurrentAccount();
+
+        if (!account) return;
+
+        account.calendarEvents = calendarEvents;
+
+        saveAccounts();
+
+        document.getElementById("event-name").value = "";
+        document.getElementById("event-date").value = "";
+        document.getElementById("event-amount").value = "";
+
+        displayCalendarEvents();
     });
+}
 
-    const account = getCurrentAccount();
+// -- Navigation --
+document.querySelectorAll(".nav-button").forEach(link => {
+    const linkPage = new URL(link.href).pathname.split("/").pop();
 
-    if (!account) return;
-
-    account.calendarEvents = calendarEvents;
-
-    saveAccounts();
-
-    document.getElementById("event-name").value = "";
-    document.getElementById("event-date").value = "";
-    document.getElementById("event-amount").value = "";
-
-    displayCalendarEvents();
+    if (linkPage === pageFile) {
+        link.classList.add("active");
+    }
 });
 
-displayCalendarEvents();
+const dashboardPages = {
+    balance: "balance.html",
+    wishlist: "albums.html",
+    favorites: "favorites.html",
+    affordables: "affordables.html",
+    owned: "owned.html"
+};
+
+document.querySelectorAll(".dashboard-card").forEach(card => {
+    card.addEventListener("click", () => {
+        const destination = dashboardPages[card.dataset.page];
+        if (destination) window.location.assign(destination);
+    });
+});
 
 // ==================== START APP ====================
 
-if (currentUser) {
+if (isAuthPage) {
+    if (currentUser) {
+        window.location.replace("index.html");
+    }
+} else if (currentUser) {
     loadCurrentUserData();
 
     enterApp();
 
     updateBalanceDisplay();
     updateBalanceUI();
-    displayAlbums();
-    displayFavorites();
-    displayOwned();
-    displayAffordables(); // ← ADD THIS
-    displayCalendarEvents();
-    updateDashboardAffordable();
+
+    if (currentPage === "index" || currentPage === "home") {
+        updateDashboardCounts();
+        updateDashboardAffordable();
+    }
+
+    if (currentPage === "albums") {
+        displayAlbums();
+    }
+
+    if (currentPage === "favorites") {
+        displayFavorites();
+    }
+
+    if (currentPage === "owned") {
+        displayOwned();
+    }
+
+    if (currentPage === "affordables") {
+        displayAffordables();
+        updateDashboardAffordable();
+    }
+
+    if (currentPage === "calendar") {
+        displayCalendarEvents();
+    }
+
 } else {
-    app.classList.add("hidden");
-    authPage.classList.remove("hidden");
-    showLoginForm();
+    window.location.replace("login.html");
 }
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js")
+        navigator.serviceWorker.register("../service-worker.js")
             .then(() => {
                 console.log("Service Worker registered!");
             })
