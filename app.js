@@ -299,6 +299,14 @@ if (showLogin) {
     );
 }
 
+// -- SUPABASE --
+const SUPABASE_URL = "https://jwjmkssxjyckxhnrvbnk.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3am1rc3N4anlja3hobnJ2Ym5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MzQzNjEsImV4cCI6MjEwMzMxMDM2MX0.CbSDFPQBMXxP1xtyMnhbo36zjffD767fekNZM19rpyQ";
+
+const supabaseClient = window.supabase
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
 // -- ALBUMS --
 const albums = [
     {
@@ -315,7 +323,8 @@ const albums = [
         url: "https://en.ygselect.com/product/blackpink-3rd-mini-album-deadline-silver-ver/12811/category/1345/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202602/9336c0659b9526e49e47e1cf2261f956.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 2,
@@ -331,7 +340,8 @@ const albums = [
         url: "https://en.ygselect.com/product/blackpink-3rd-mini-album-deadline-black-ver/12808/category/43/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202601/99a947216871e0281e8a364710cfbd4b.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 3,
@@ -347,7 +357,8 @@ const albums = [
         url: "https://en.ygselect.com/product/blackpink-3rd-mini-album-deadline-pink-ver/12809/category/43/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202601/b1b8bf6d20cf275c8feb1a2eb6fa1047.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 4,
@@ -363,7 +374,8 @@ const albums = [
         url: "https://en.ygselect.com/product/babymonster-1st-full-album-drip-zip-lock-ver/10334/category/1238/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202410/bf71cdccfca6b34aacd1c54ab3fcd9ad.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 5,
@@ -379,7 +391,8 @@ const albums = [
         url: "https://en.ygselect.com/product/babymonster-3rd-mini-album-춤-choom-crimson-metallic-prism-ver/12957/category/1384/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202604/29977c3d2598e426e192eb53ef007586.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 6,
@@ -395,7 +408,8 @@ const albums = [
         url: "https://en.ygselect.com/product/babymonster-3rd-mini-album-춤-choom-jewel-ver/12961/category/1384/display/1/#none",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202604/a1d7191e2b452a7bf0ddb407e9dddee1.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 7,
@@ -411,7 +425,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/61550",
         img: "https://cdn-contents.weverseshop.io/public/shop/0beeab1cfd2421268a0013013dcda63e.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 8,
@@ -427,7 +442,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/61566",
         img: "https://cdn-contents.weverseshop.io/public/shop/791a7bfe9a128b678e28fd82e84bf23c.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 9,
@@ -443,7 +459,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/65509",
         img: "https://cdn-contents.weverseshop.io/public/shop/35454d5b5f9e5892ed1458e67ceff84d.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 10,
@@ -459,7 +476,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/62758",
         img: "https://cdn-contents.weverseshop.io/public/shop/7c47265ae655a26d3a2d341def3795e9.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 11,
@@ -475,7 +493,8 @@ const albums = [
         url: "https://en.ygselect.com/product/meovv-the-2nd-ep-album-bite-now-meovv-ver-5%EC%A2%85-%EC%A4%91-%EB%9E%9C%EB%8D%A4-1%EC%A2%85/13040/category/51/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202605/3389b90baffe910cc00214c07f6f6a54.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 12,
@@ -491,7 +510,8 @@ const albums = [
         url: "https://en.ygselect.com/product/the-1st-ep-album-allday-project-photobook-ver-2%EC%A2%85-%EC%A4%91-%EB%9E%9C%EB%8D%A4-1%EC%A2%85/12628/category/1333/display/1/#none",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202512/721a15728cb46f284a3a7807e8448cfd.png",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 13,
@@ -507,7 +527,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/120/sales/58249",
         img: "https://cdn-contents.weverseshop.io/public/shop/45df81931c399c648d22846a8757eb06.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 14,
@@ -523,7 +544,8 @@ const albums = [
         url: "https://en.ygselect.com/product/jisoo-mini-album-amortage-exclusive-edition-purple-ver/10999/category/1307/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202502/ca45d5fa01f03fdf4e8fb20782097917.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 15,
@@ -539,7 +561,8 @@ const albums = [
         url: "https://en.ygselect.com/product/jisoo-mini-album-amortage-exclusive-edition-black-ver/11000/category/1307/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202502/bae8e62bc1cc9c2928699798276f26b7.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 16,
@@ -555,7 +578,8 @@ const albums = [
         url: "https://en.ygselect.com/product/jisoo-first-single-album-me/8519/category/1021/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000MPR.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 17,
@@ -571,7 +595,8 @@ const albums = [
         url: "https://en.ygselect.com/product/%ED%95%B4%EC%99%B8%EB%AA%B0-jisoo-first-single-album-me-kit-album/8523/category/1021/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000MPV.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 18,
@@ -587,7 +612,8 @@ const albums = [
         url: "https://en.ygselect.com/product/blackpink-2nd-album-born-pink-digipack-ver/7751/category/964/display/1/#none",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000LMD.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 19,
@@ -603,7 +629,8 @@ const albums = [
         url: "https://en.ygselect.com/product/lisa-first-single-album-lalisa/6379/category/744/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000JLJ.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 20,
@@ -619,7 +646,8 @@ const albums = [
         url: "https://en.ygselect.com/product/blackpink-1st-full-album-the-album/5625/category/610/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000IIJ.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 21,
@@ -635,7 +663,8 @@ const albums = [
         url: "https://en.ygselect.com/product/blackpink-special-edition-how-you-like-that/5523/category/605/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000IEL.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 22,
@@ -651,7 +680,8 @@ const albums = [
         url: "https://en.ygselect.com/product/blackpink-2nd-mini-album-kill-this-love/4874/category/552/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000HFM.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 23,
@@ -667,7 +697,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/57396",
         img: "https://cdn-contents.weverseshop.io/public/shop/260a90df9b60b501fe1e20ad125c8fd1.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 24,
@@ -683,7 +714,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/41596",
         img: "https://cdn-contents.weverseshop.io/public/shop/7d708c5e8726a7762545d6ee6c06dc7f.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 25,
@@ -699,7 +731,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/44949",
         img: "https://cdn-contents.weverseshop.io/public/shop/4a71b2b9ebd0f8f32364b939f8be5979.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 26,
@@ -715,7 +748,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/44947",
         img: "https://cdn-contents.weverseshop.io/public/shop/9fc7df8ff97abcae72218a7cd07a567e.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 27,
@@ -731,7 +765,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/61569",
         img: "https://cdn-contents.weverseshop.io/public/shop/a0f2efdf1886336457e8b23bcb467a9d.png?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 28,
@@ -747,7 +782,8 @@ const albums = [
         url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/41409",
         img: "https://cdn-contents.weverseshop.io/public/shop/233f57d9df66b160f7b36e6d615f9359.jpg?w=720&q=95",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 29,
@@ -763,7 +799,8 @@ const albums = [
         url: "https://shop.rosesarerosie.com/products/rosie-jewel-case-version-band-cover?variant=46260118814939",
         img: "https://shop.rosesarerosie.com/cdn/shop/files/CD_COMPACT_ALT.png?v=1731533251&width=1024",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 30,
@@ -779,7 +816,8 @@ const albums = [
         url: "https://en.ygselect.com/product/meovv-the-2nd-ep-album-bite-now-photobook-ver-2%EC%A2%85-%EC%A4%91-%EB%9E%9C%EB%8D%A4-1%EC%A2%85/13038/category/51/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202605/63a40d074d0ef697be9c32ae21c2e0fa.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 31,
@@ -795,7 +833,8 @@ const albums = [
         url: "https://en.ygselect.com/product/babymonster-2nd-mini-album-we-go-up-up-ver/12211/category/1355/display/1/",
         img: "https://cafe24img.poxo.com/ygnext/web/product/big/202509/e889a218cefc28d63690cbb45de306c2.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 32,
@@ -811,7 +850,8 @@ const albums = [
         url: "https://www.ubuy.co.am/hy/product/J453DOOJU-billie-eilish-hit-me-hard-and-soft-alternative-cd/",
         img: "https://i5.walmartimages.com/seo/Billie-Eilish-Hit-Me-Hard-And-Soft-Music-Performance-CD_fe2a2f91-ca73-412e-b435-bec6cf059dd3.fc537f42d67984014ad592a36525fb6a.jpeg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 33,
@@ -827,7 +867,8 @@ const albums = [
         url: "https://am.ozon.com/t/V2DhZYx",
         img: "https://m.media-amazon.com/images/I/61qo2D1SkRL._SX355_.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
     {
         id: 34,
@@ -843,7 +884,8 @@ const albums = [
         url: "https://am.ozon.com/t/wE0K24u",
         img: "https://ir.ozone.ru/s3/multimedia-1-q/c400/13372092386.jpg",
         bought: false,
-        favorite: false
+        favorite: false,
+        available: true
     },
 ];
 
@@ -2248,6 +2290,24 @@ if ("serviceWorker" in navigator) {
                 console.error("Service Worker registration failed:", error);
             });
     });
+}
+
+// -- SUPABASE CONNECTION --
+async function testSupabaseConnection() {
+    const { data, error } = await supabaseClient
+        .from("albums")
+        .select("*")
+        .limit(1);
+
+    if (error) {
+        console.error("❌ Supabase connection failed:", error);
+    } else {
+        console.log("✅ Supabase connection works!", data);
+    }
+}
+
+if (supabaseClient) {
+    testSupabaseConnection();
 }
 
 console.log("K-pop Tracker started!");
