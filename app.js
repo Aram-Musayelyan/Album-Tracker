@@ -116,7 +116,8 @@ if (registerButton) {
             balance: 0,
             favorites: [],
             owned: [],
-            calendarEvents: []
+            calendarEvents: [],
+            customAlbums: []
         };
 
         accounts.push(newAccount);
@@ -187,6 +188,8 @@ function loadCurrentUserData() {
         console.log("No current account found.");
         return;
     }
+
+    restoreAlbumsForAccount(account);
 
     // Load this account's favorites ONLY
     const savedFavorites = Array.isArray(account.favorites)
@@ -300,8 +303,8 @@ if (showLogin) {
 }
 
 // -- SUPABASE --
-const SUPABASE_URL = "https://jwjmkssxjyckxhnrvbnk.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3am1rc3N4anlja3hobnJ2Ym5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MzQzNjEsImV4cCI6MjEwMzMxMDM2MX0.CbSDFPQBMXxP1xtyMnhbo36zjffD767fekNZM19rpyQ";
+const SUPABASE_URL = "https://qktnjlmigjbpshfnghfl.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrdG5qbG1pZ2picHNoZm5naGZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc1Nzc3NzksImV4cCI6MjEwMzE1Mzc3OX0.ihBW35BkBp08Ky_ZrzAUwUTtuwtZ_ZXct1f6OreehTc";
 
 const supabaseClient = window.supabase
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
@@ -888,6 +891,21 @@ const albums = [
         available: true
     },
 ];
+
+const builtInAlbums = albums.map(album => ({ ...album }));
+
+function restoreAlbumsForAccount(account) {
+    const customAlbums = Array.isArray(account.customAlbums)
+        ? account.customAlbums
+        : [];
+
+    albums.splice(
+        0,
+        albums.length,
+        ...builtInAlbums.map(album => ({ ...album })),
+        ...customAlbums.map(album => ({ ...album }))
+    );
+}
 
 // -- Grids --
 const albumGrid =
@@ -1801,6 +1819,134 @@ updateDashboardAffordable();
 const albumSearch = document.getElementById("album-search");
 const favoriteSearch = document.getElementById("favorite-search");
 const affordableSearch = document.getElementById("affordable-search");
+const albumImportUrl = document.getElementById("album-import-url");
+const importAlbumButton = document.getElementById("import-album-button");
+const albumImportMessage = document.getElementById("album-import-message");
+const albumImportModal = document.getElementById("album-import-modal");
+const albumImportPreview = document.getElementById("album-import-preview");
+const albumImportEditor = document.getElementById("album-import-editor");
+const albumImportActions = document.getElementById("album-import-actions");
+const albumImportSaveActions = document.getElementById("album-import-save-actions");
+const importedAlbumName = document.getElementById("imported-album-name");
+const importedAlbumContent = document.getElementById("imported-album-content");
+const importedAlbumDelivery = document.getElementById("imported-album-delivery");
+let importedAlbumDraft = null;
+
+function renderImportedAlbumPreview() {
+    if (!albumImportPreview || !importedAlbumDraft) return;
+
+    albumImportPreview.innerHTML = `
+        <div class="flex flex-col sm:flex-row gap-5">
+            <img src="${importedAlbumDraft.img}" alt="${importedAlbumDraft.name}" class="w-full sm:w-48 h-48 object-cover rounded-xl bg-gray-800">
+            <div>
+                <p class="text-sm text-pink-400 font-bold">Ready to add</p>
+                <h2 class="text-2xl font-bold mt-1">${importedAlbumDraft.name}</h2>
+                <p class="mt-3 text-gray-300">💰 Price: $${importedAlbumDraft.price.toFixed(2)}</p>
+                <p class="mt-1 text-gray-300">📦 Delivery: $${importedAlbumDraft.delivery.toFixed(2)}</p>
+                <p class="mt-4 text-gray-300 whitespace-pre-line">${importedAlbumDraft.content || "No contents listed."}</p>
+            </div>
+        </div>`;
+}
+
+function closeAlbumImportModal() {
+    importedAlbumDraft = null;
+    if (albumImportModal) albumImportModal.classList.add("hidden");
+}
+
+function showAlbumImportEditor(showEditor) {
+    albumImportEditor?.classList.toggle("hidden", !showEditor);
+    albumImportActions?.classList.toggle("hidden", showEditor);
+    albumImportSaveActions?.classList.toggle("hidden", !showEditor);
+}
+
+if (importAlbumButton) {
+    importAlbumButton.addEventListener("click", async () => {
+        const url = albumImportUrl.value.trim();
+        albumImportMessage.textContent = "";
+
+        if (!url) {
+            albumImportMessage.textContent = "Paste a Weverse or YG SELECT album URL first.";
+            return;
+        }
+
+        importAlbumButton.disabled = true;
+        importAlbumButton.textContent = "Importing…";
+
+        try {
+            const response = await fetch(`${SUPABASE_URL}/functions/v1/import-album`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    apikey: SUPABASE_ANON_KEY
+                },
+                body: JSON.stringify({ url })
+            });
+            const result = await response.json();
+
+            if (!response.ok) throw new Error(result.error || "Could not import this album.");
+
+            importedAlbumDraft = {
+                ...result.album,
+                id: Date.now(),
+                artist: "",
+                number: "",
+                type: "",
+                version: "",
+                member: "",
+                delivery: 0,
+                favorite: false,
+                bought: false,
+                available: true
+            };
+            renderImportedAlbumPreview();
+            showAlbumImportEditor(false);
+            albumImportModal.classList.remove("hidden");
+        } catch (error) {
+            albumImportMessage.textContent = error.message === "Failed to fetch"
+                ? "The album importer is not available right now. Please try again shortly."
+                : error.message;
+        } finally {
+            importAlbumButton.disabled = false;
+            importAlbumButton.textContent = "Import album";
+        }
+    });
+}
+
+document.getElementById("edit-imported-album")?.addEventListener("click", () => {
+    importedAlbumName.value = importedAlbumDraft.name;
+    importedAlbumContent.value = importedAlbumDraft.content;
+    importedAlbumDelivery.value = importedAlbumDraft.delivery;
+    showAlbumImportEditor(true);
+});
+
+document.getElementById("save-imported-album")?.addEventListener("click", () => {
+    const delivery = Number(importedAlbumDelivery.value);
+    if (!importedAlbumName.value.trim() || !Number.isFinite(delivery) || delivery < 0) return;
+
+    importedAlbumDraft.name = importedAlbumName.value.trim();
+    importedAlbumDraft.content = importedAlbumContent.value.trim();
+    importedAlbumDraft.delivery = delivery;
+    renderImportedAlbumPreview();
+    showAlbumImportEditor(false);
+});
+
+document.getElementById("cancel-import-edit")?.addEventListener("click", () => showAlbumImportEditor(false));
+document.getElementById("cancel-import-album")?.addEventListener("click", closeAlbumImportModal);
+
+document.getElementById("confirm-import-album")?.addEventListener("click", () => {
+    const account = getCurrentAccount();
+    if (!account || !importedAlbumDraft) return;
+
+    account.customAlbums = Array.isArray(account.customAlbums) ? account.customAlbums : [];
+    account.customAlbums.push({ ...importedAlbumDraft });
+    albums.push({ ...importedAlbumDraft });
+    saveAccounts();
+    closeAlbumImportModal();
+    albumImportUrl.value = "";
+    displayAlbums();
+    updateDashboardCounts();
+    updateDashboardAffordable();
+});
 let albumsRenderVersion = 0;
 
 async function displayAlbums() {
