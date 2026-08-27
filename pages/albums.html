@@ -99,6 +99,95 @@
                 All the albums you wanna buy
             </p>
 
+            <!-- Add album from URL -->
+            <div class="mb-6">
+                <div class="flex gap-3">
+                    <input id="album-url-input" type="url" placeholder="🔗 Paste a Weverse or YG SELECT album URL..."
+                        class="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition">
+            
+                    <button id="import-album-btn" type="button"
+                        class="px-5 py-3 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-semibold transition">
+                        Import
+                    </button>
+                </div>
+            
+                <p id="album-import-message" class="mt-2 text-sm text-gray-400"></p>
+            </div>
+            
+            <!-- Imported album preview/edit modal -->
+            <div id="album-import-modal"
+                class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+                <div class="w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-gray-900 border border-gray-700 rounded-2xl p-6">
+            
+                    <!-- Preview -->
+                    <div id="album-import-preview"></div>
+            
+                    <!-- Edit form -->
+                    <div id="album-import-editor" class="hidden mt-6 space-y-4">
+            
+                        <div>
+                            <label for="imported-album-name" class="block text-sm font-semibold text-gray-300 mb-2">
+                                Album name
+                            </label>
+            
+                            <input id="imported-album-name" type="text"
+                                class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-pink-500">
+                        </div>
+            
+                        <div>
+                            <label for="imported-album-content" class="block text-sm font-semibold text-gray-300 mb-2">
+                                Contents
+                            </label>
+            
+                            <textarea id="imported-album-content" rows="6"
+                                class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-pink-500"></textarea>
+                        </div>
+            
+                        <div>
+                            <label for="imported-album-delivery" class="block text-sm font-semibold text-gray-300 mb-2">
+                                Delivery
+                            </label>
+            
+                            <input id="imported-album-delivery" type="text" inputmode="decimal" value="0"
+                                class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white outline-none focus:border-pink-500">
+                        </div>
+            
+                    </div>
+            
+                    <!-- Normal actions -->
+                    <div id="album-import-actions" class="flex justify-end gap-3 mt-6">
+                        <button id="cancel-import-album" type="button"
+                            class="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white">
+                            Cancel
+                        </button>
+            
+                        <button id="edit-imported-album" type="button"
+                            class="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white">
+                            Edit
+                        </button>
+            
+                        <button id="confirm-import-album" type="button"
+                            class="px-4 py-2 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-semibold">
+                            Add Album
+                        </button>
+                    </div>
+            
+                    <!-- Edit actions -->
+                    <div id="album-import-save-actions" class="hidden flex justify-end gap-3 mt-6">
+                        <button id="cancel-import-edit" type="button"
+                            class="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white">
+                            Cancel
+                        </button>
+            
+                        <button id="save-imported-album" type="button"
+                            class="px-4 py-2 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-semibold">
+                            Save Changes
+                        </button>
+                    </div>
+            
+                </div>
+            </div>
+
             <div id="albums-controls">
                 <!-- Search -->
                 <div class="mb-4">

@@ -311,586 +311,7 @@ const supabaseClient = window.supabase
     : null;
 
 // -- ALBUMS --
-const albums = [
-    {
-        id: 1,
-        artist: "BLACKPINK",
-        number: "3rd",
-        type: "MINI ALBUM",
-        name: "DEADLINE",
-        version: "SILVER",
-        member: "JISOO",
-        price: 10.61,
-        delivery: 29.89,
-        content: "PHOTOBOOK, CD, FOLDED POSTER, PHOTO FILM TICKET, SELFIE PHOTOCARDS",
-        url: "https://en.ygselect.com/product/blackpink-3rd-mini-album-deadline-silver-ver/12811/category/1345/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202602/9336c0659b9526e49e47e1cf2261f956.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 2,
-        artist: "BLACKPINK",
-        number: "3rd",
-        type: "MINI ALBUM",
-        name: "DEADLINE",
-        version: "BLACK",
-        member: "",
-        price: 15.17,
-        delivery: 32.68,
-        content: "PHOTOBOOK, CD, SELFIE PHOTOCARDS, PHOTO STICKERS, GRAPHIC STICKER, GROUP FOLDED POSTER",
-        url: "https://en.ygselect.com/product/blackpink-3rd-mini-album-deadline-black-ver/12808/category/43/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202601/99a947216871e0281e8a364710cfbd4b.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 3,
-        artist: "BLACKPINK",
-        number: "3rd",
-        type: "MINI ALBUM",
-        name: "DEADLINE",
-        version: "PINK",
-        member: "",
-        price: 15.17,
-        delivery: 32.68,
-        content: "PHOTOBOOK, CD, SELFIE PHOTOCARDS, PHOTO STICKERS, GRAPHIC STICKER, GROUP FOLDED POSTER",
-        url: "https://en.ygselect.com/product/blackpink-3rd-mini-album-deadline-pink-ver/12809/category/43/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202601/b1b8bf6d20cf275c8feb1a2eb6fa1047.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 4,
-        artist: "BABYMONSTER",
-        number: "1st",
-        type: "FULL ALBUM",
-        name: "DRIP",
-        version: "ZIP LOCK",
-        member: "",
-        price: 13.13,
-        delivery: 29.89,
-        content: "ZIP LOCK, PHOTOBOOK, CD, SELFIE PHOTOCARDS, HANG TAG",
-        url: "https://en.ygselect.com/product/babymonster-1st-full-album-drip-zip-lock-ver/10334/category/1238/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202410/bf71cdccfca6b34aacd1c54ab3fcd9ad.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 5,
-        artist: "BABYMONSTER",
-        number: "3rd",
-        type: "MINI ALBUM",
-        name: "춤(CHOOM)",
-        version: "Crimson / Metallic / Prism",
-        member: "",
-        price: 12.65,
-        delivery: 29.89,
-        content: "COVER + PHOTOBOOK, CD, LOGO TAG, SELFIE PHOTOCARDS, STICKERS, MINI POSTER",
-        url: "https://en.ygselect.com/product/babymonster-3rd-mini-album-춤-choom-crimson-metallic-prism-ver/12957/category/1384/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202604/29977c3d2598e426e192eb53ef007586.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 6,
-        artist: "BABYMONSTER",
-        number: "3rd",
-        type: "MINI ALBUM",
-        name: "춤(CHOOM)",
-        version: "Jewel",
-        member: "RORA",
-        price: 8.57,
-        delivery: 29.89,
-        content: "SLEEVE, JEWEL CASE, PHOTOBOOK, CD, SELFIE PHOTOCARDS, STICKERS",
-        url: "https://en.ygselect.com/product/babymonster-3rd-mini-album-춤-choom-jewel-ver/12961/category/1384/display/1/#none",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202604/a1d7191e2b452a7bf0ddb407e9dddee1.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 7,
-        artist: "aespa",
-        number: "2nd",
-        type: "Album",
-        name: "LEMONADE",
-        version: "SMini",
-        member: "Random",
-        price: 10.08,
-        delivery: 34.99,
-        content: "Cover, Keyring Ball Chain, Music NFC CD, Photocard",
-        url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/61550",
-        img: "https://cdn-contents.weverseshop.io/public/shop/0beeab1cfd2421268a0013013dcda63e.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 8,
-        artist: "aespa",
-        number: "2nd",
-        type: "Album",
-        name: "LEMONADE",
-        version: "ADIC",
-        member: "Random",
-        price: 13.80,
-        delivery: 34.99,
-        content: "Cover, Photobook, CD-R, Sticker, Postcard, Folded Poster, Photocard",
-        url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/61566",
-        img: "https://cdn-contents.weverseshop.io/public/shop/791a7bfe9a128b678e28fd82e84bf23c.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 9,
-        artist: "KATSEYE",
-        number: "3rd",
-        type: "EP",
-        name: "WILD",
-        version: "Wild Heart / Wild World",
-        member: "Random",
-        price: 14.16,
-        delivery: 34.99,
-        content: "Photobook, CD-R, Group Photocard, Photocard, Sticker, Photo Strip Frame / Profile Report, Plastic Keyring / Badge",
-        url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/65509",
-        img: "https://cdn-contents.weverseshop.io/public/shop/35454d5b5f9e5892ed1458e67ceff84d.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 10,
-        artist: "KATSEYE",
-        number: "3rd",
-        type: "EP",
-        name: "WILD",
-        version: "International Retailer Exclusive",
-        member: "",
-        price: 15.59,
-        delivery: 34.99,
-        content: "Photobook, CD-R, Group Photocard, Photocard, Sticker, Photo Strip Frame, Plastic Keyring, International Special Bonus Photocard, Die-Cut Card, Bonus Track 'UNLOVEU' Lyric Card",
-        url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/62758",
-        img: "https://cdn-contents.weverseshop.io/public/shop/7c47265ae655a26d3a2d341def3795e9.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 11,
-        artist: "MEOVV",
-        number: "2nd",
-        type: "EP Album",
-        name: "BITE NOW",
-        version: "MEOVV",
-        member: "Random",
-        price: 8.16,
-        delivery: 29.89,
-        content: "OUTER CASE, MINI-CD, STICKER, SELFIE PHOTOCARD, PROFILE PHOTOCARD",
-        url: "https://en.ygselect.com/product/meovv-the-2nd-ep-album-bite-now-meovv-ver-5%EC%A2%85-%EC%A4%91-%EB%9E%9C%EB%8D%A4-1%EC%A2%85/13040/category/51/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202605/3389b90baffe910cc00214c07f6f6a54.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 12,
-        artist: "ALLDAY PROJECT",
-        number: "1st",
-        type: "EP Album",
-        name: "ALLDAY PROJECT",
-        version: "PHOTOBOOK",
-        member: "DAY / ONE",
-        price: 13.47,
-        delivery: 32.68,
-        content: "OUTER SLEEVE, PHOTOBOOK, COMPONENTS BOX, CD-R + CASE, SELFIE PHOTOCARD, GROUP PHOTOCARD, PAPER AIR FRESHENER, STICKER, FOLDED POSTERs",
-        url: "https://en.ygselect.com/product/the-1st-ep-album-allday-project-photobook-ver-2%EC%A2%85-%EC%A4%91-%EB%9E%9C%EB%8D%A4-1%EC%A2%85/12628/category/1333/display/1/#none",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202512/721a15728cb46f284a3a7807e8448cfd.png",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 13,
-        artist: "ILLIT",
-        number: "4th",
-        type: "EP",
-        name: "MAMIHLAPINATAPAI",
-        version: "PAW PAW",
-        member: "Random",
-        price: 11.08,
-        delivery: 34.08,
-        content: "Outbox, Photobook, Lyric Book, Postcard, Accordion Mini Book, Mini CD-R / CD Envelope, Envelope, 2 Sticker, Sticker Book, Poster, 2 Photocards",
-        url: "https://shop.weverse.io/en/shop/USD/artists/120/sales/58249",
-        img: "https://cdn-contents.weverseshop.io/public/shop/45df81931c399c648d22846a8757eb06.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 14,
-        artist: "JISOO",
-        number: "1st",
-        type: "Mini Album",
-        name: "AMORTAGE",
-        version: "EXCLUSIVE EDITION PURPLE",
-        member: "",
-        price: 14.69,
-        delivery: 29.89,
-        content: "OUTBOX, SCREENPLAY BOOK, CD, FLIPBOOK, POSTCARDS, PHOTOCARD, POLAROID",
-        url: "https://en.ygselect.com/product/jisoo-mini-album-amortage-exclusive-edition-purple-ver/10999/category/1307/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202502/ca45d5fa01f03fdf4e8fb20782097917.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 15,
-        artist: "JISOO",
-        number: "1st",
-        type: "Mini Album",
-        name: "AMORTAGE",
-        version: "EXCLUSIVE EDITION BLACK",
-        member: "",
-        price: 14.69,
-        delivery: 29.89,
-        content: "OUTBOX, SCREENPLAY BOOK, CD, FLIPBOOK, POSTCARDS, PHOTOCARD, POLAROID, KEY TAG",
-        url: "https://en.ygselect.com/product/jisoo-mini-album-amortage-exclusive-edition-black-ver/11000/category/1307/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202502/bae8e62bc1cc9c2928699798276f26b7.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 16,
-        artist: "JISOO",
-        number: "FIRST",
-        type: "SINGLE ALBUM",
-        name: "ME",
-        version: "BLACK",
-        member: "",
-        price: 11.09,
-        delivery: 34.67,
-        content: "PACKAGING BOX, CD, PHOTOBOOK, SELFIE PHOTOCARD, INSTANT PHOTO, LYRICS PAPER, BOOKMARK",
-        url: "https://en.ygselect.com/product/jisoo-first-single-album-me/8519/category/1021/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000MPR.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 17,
-        artist: "JISOO",
-        number: "FIRST",
-        type: "SINGLE ALBUM",
-        name: "ME",
-        version: "KiT",
-        member: "",
-        price: 15.37,
-        delivery: 32.68,
-        content: "PACKAGING BOX, KiT, DOUBLE-SIDED PHOTOCARD SET, LYRICS PAPER, CREDIT PAPER, CALENDAR, WOOD STAND, SELFIE PHOTOCARD",
-        url: "https://en.ygselect.com/product/%ED%95%B4%EC%99%B8%EB%AA%B0-jisoo-first-single-album-me-kit-album/8523/category/1021/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000MPV.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 18,
-        artist: "BLACKPINK",
-        number: "2nd",
-        type: "ALBUM",
-        name: "BORN PINK",
-        version: "DIGIPACK",
-        member: "JISOO",
-        price: 8.98,
-        delivery: 29.89,
-        content: "DIGIPACK, CD, BOOKLET, RANDOM SELFIE PHOTOCARD, ACCORDION LYRIC SHEET, FOLDED POSTER",
-        url: "https://en.ygselect.com/product/blackpink-2nd-album-born-pink-digipack-ver/7751/category/964/display/1/#none",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000LMD.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 19,
-        artist: "LISA",
-        number: "FIRST",
-        type: "SINGLE ALBUM",
-        name: "LALISA",
-        version: "BLACK / GOLD",
-        member: "",
-        price: 11.09,
-        delivery: 34.67,
-        content: "PACKAGING, CD, PHOTOBOOK, LYRICS, PHOTOCARD, INSTANT PHOTO, DOUBLE-SIDED POSTER, RARE GOLD PHOTO CARD, RARE GOLDEN TICKET",
-        url: "https://en.ygselect.com/product/lisa-first-single-album-lalisa/6379/category/744/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000JLJ.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 20,
-        artist: "BLACKPINK",
-        number: "1st",
-        type: "FULL ALBUM",
-        name: "THE ALBUM",
-        version: "BLACK / GOLD",
-        member: "VER. 3 / VER. 4",
-        price: 11.09,
-        delivery: 34.67,
-        content: "PACKAGING, CD, HARDCOVER PHOTOBOOK, POSTCARD SET, CREDIT SHEET, LYRIC BOOK, PHOTOCARD, POSTCARD, STICKER, MOUNTED PHOTOCARD",
-        url: "https://en.ygselect.com/product/blackpink-1st-full-album-the-album/5625/category/610/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000IIJ.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 21,
-        artist: "BLACKPINK",
-        number: "",
-        type: "SPECIAL EDITION",
-        name: "How You Like That",
-        version: "",
-        member: "",
-        price: 12.24,
-        delivery: 36.66,
-        content: "CD, PHOTOBOOK, INSTANT PHOTO, POSTCARD, FOLDED POSTER, VIBE GIFT CARD, DOUBLE-SIDED POSTER",
-        url: "https://en.ygselect.com/product/blackpink-special-edition-how-you-like-that/5523/category/605/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000IEL.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 22,
-        artist: "BLACKPINK",
-        number: "2nd",
-        type: "MINI ALBUM",
-        name: "KILL THIS LOVE",
-        version: "BLACK / PINK",
-        member: "",
-        price: 11.09,
-        delivery: 34.67,
-        content: "CD, PACKAGIBG BOX, PHOTOBOOK, ACCORDION LYRIC BOOK, INSTANT PHOTOCARD, PHOTO ZINE, STICKER SET, LARGE PHOTOCARD SET",
-        url: "https://en.ygselect.com/product/blackpink-2nd-mini-album-kill-this-love/4874/category/552/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202402/P0000HFM.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 23,
-        artist: "KATSEYE",
-        number: "3rd",
-        type: "EP",
-        name: "WILD",
-        version: "Member",
-        member: "Random",
-        price: 9.23,
-        delivery: 34.99,
-        content: "Photobook, CD-R, Disguise Mask, Mini Poster, 2 Stickers, 2 Photocards",
-        url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/57396",
-        img: "https://cdn-contents.weverseshop.io/public/shop/260a90df9b60b501fe1e20ad125c8fd1.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 24,
-        artist: "KATSEYE",
-        number: "2nd",
-        type: "EP",
-        name: "BEAUTIFUL CHAOS",
-        version: "RED / YELLOW",
-        member: "Random",
-        price: 12.73,
-        delivery: 34.99,
-        content: "Photobook, Envelope, Photocard, Photocard Holder, Polaroid, Folded Poster, Postcard, Sticker Pack, CD, Mini Zine",
-        url: "https://shop.weverse.io/en/shop/USD/artists/206/sales/41596",
-        img: "https://cdn-contents.weverseshop.io/public/shop/7d708c5e8726a7762545d6ee6c06dc7f.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 25,
-        artist: "aespa",
-        number: "6th",
-        type: "Mini Album",
-        name: "Rich Man",
-        version: "BURST",
-        member: "Random",
-        price: 9.51,
-        delivery: 34.99,
-        content: "Cover, Photobook, CD-R, Folded Poster, Photocard",
-        url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/44949",
-        img: "https://cdn-contents.weverseshop.io/public/shop/4a71b2b9ebd0f8f32364b939f8be5979.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 26,
-        artist: "aespa",
-        number: "6th",
-        type: "Mini Album",
-        name: "Rich Man",
-        version: "ENERGY",
-        member: "Random",
-        price: 10.58,
-        delivery: 34.99,
-        content: "Cover, Photobook, CD-R, Postcard, Folded Poster, Photocard",
-        url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/44947",
-        img: "https://cdn-contents.weverseshop.io/public/shop/9fc7df8ff97abcae72218a7cd07a567e.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 27,
-        artist: "aespa",
-        number: "2nd",
-        type: "Album",
-        name: "LEMONADE",
-        version: "WDA",
-        member: "",
-        price: 19.10,
-        delivery: 34.99,
-        content: "Cover, Photobook, CD-R, Bookmark, Postcard, Folded Poster, Photocard",
-        url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/61569",
-        img: "https://cdn-contents.weverseshop.io/public/shop/a0f2efdf1886336457e8b23bcb467a9d.png?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 28,
-        artist: "aespa",
-        number: "",
-        type: "Single",
-        name: "Dirty Work",
-        version: "Dirty Worker",
-        member: "",
-        price: 13.80,
-        delivery: 34.99,
-        content: "Photobook, CD-R, CD-R Evnelope, Tattoo Sticker, Photocard",
-        url: "https://shop.weverse.io/en/shop/USD/artists/133/sales/41409",
-        img: "https://cdn-contents.weverseshop.io/public/shop/233f57d9df66b160f7b36e6d615f9359.jpg?w=720&q=95",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 29,
-        artist: "ROSÉ",
-        number: "1st",
-        type: "Studio Album",
-        name: "rosie",
-        version: "Jewel Case",
-        member: "Band Cover",
-        price: 14.98,
-        delivery: 15.99,
-        content: "Jewel Case, CD, Lyric Book",
-        url: "https://shop.rosesarerosie.com/products/rosie-jewel-case-version-band-cover?variant=46260118814939",
-        img: "https://shop.rosesarerosie.com/cdn/shop/files/CD_COMPACT_ALT.png?v=1731533251&width=1024",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 30,
-        artist: "MEOVV",
-        number: "2nd",
-        type: "EP ALBUM",
-        name: "BITE NOW",
-        version: "PHOTOBOOK",
-        member: "BEAST / ANGEL",
-        price: 13.54,
-        delivery: 32.68,
-        content: "PHOTOBOOK + SLEEVE, CD-R + CD HOLDER, PAPER CLIP, PHOTOCARD, CARD SKIN, FOLDED POSTER, STICKER PACK, SCRATCHED CARD",
-        url: "https://en.ygselect.com/product/meovv-the-2nd-ep-album-bite-now-photobook-ver-2%EC%A2%85-%EC%A4%91-%EB%9E%9C%EB%8D%A4-1%EC%A2%85/13038/category/51/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202605/63a40d074d0ef697be9c32ae21c2e0fa.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 31,
-        artist: "BABYMONSTER",
-        number: "2nd",
-        type: "MINI ALBUM",
-        name: "WE GO UP",
-        version: "UP",
-        member: "",
-        price: 9.00,
-        delivery: 29.89,
-        content: "OUTBOX, PHOTOBOOK, CD, FOLDED POSTER, SELFIE PHOTOCARDS, POSTCARD, LOGO STICKERS",
-        url: "https://en.ygselect.com/product/babymonster-2nd-mini-album-we-go-up-up-ver/12211/category/1355/display/1/",
-        img: "https://cafe24img.poxo.com/ygnext/web/product/big/202509/e889a218cefc28d63690cbb45de306c2.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 32,
-        artist: "Billie Eilish",
-        number: "3rd",
-        type: "Studio Album",
-        name: "HIT ME HARD AND SOFT",
-        version: "Standard CD",
-        member: "",
-        price: 33.27,
-        delivery: 28.26,
-        content: "CD",
-        url: "https://www.ubuy.co.am/hy/product/J453DOOJU-billie-eilish-hit-me-hard-and-soft-alternative-cd/",
-        img: "https://i5.walmartimages.com/seo/Billie-Eilish-Hit-Me-Hard-And-Soft-Music-Performance-CD_fe2a2f91-ca73-412e-b435-bec6cf059dd3.fc537f42d67984014ad592a36525fb6a.jpeg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 33,
-        artist: "Olivia Rodrigo",
-        number: "3rd",
-        type: "Studio Album",
-        name: "you seem pretty sad for a girl so in love",
-        version: "CD",
-        member: "",
-        price: 7.04,
-        delivery: 0,
-        content: "Jewel case, CD",
-        url: "https://am.ozon.com/t/V2DhZYx",
-        img: "https://m.media-amazon.com/images/I/61qo2D1SkRL._SX355_.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-    {
-        id: 34,
-        artist: "CD Player",
-        number: "",
-        type: "",
-        name: "",
-        version: "Dark Brown",
-        member: "",
-        price: 63.65,
-        delivery: 0,
-        content: "CD Player, Remote",
-        url: "https://am.ozon.com/t/wE0K24u",
-        img: "https://ir.ozone.ru/s3/multimedia-1-q/c400/13372092386.jpg",
-        bought: false,
-        favorite: false,
-        available: true
-    },
-];
+const albums = [];
 
 const builtInAlbums = albums.map(album => ({ ...album }));
 
@@ -1815,12 +1236,14 @@ async function getExchangeRate() {
 
 updateDashboardAffordable();
 
-// -- ALBUM GRID --
+// -- Search --
 const albumSearch = document.getElementById("album-search");
 const favoriteSearch = document.getElementById("favorite-search");
 const affordableSearch = document.getElementById("affordable-search");
-const albumImportUrl = document.getElementById("album-import-url");
-const importAlbumButton = document.getElementById("import-album-button");
+
+// -- ALBUM INPUT --
+const albumImportUrl = document.getElementById("album-url-input");
+const importAlbumButton = document.getElementById("import-album-btn");
 const albumImportMessage = document.getElementById("album-import-message");
 const albumImportModal = document.getElementById("album-import-modal");
 const albumImportPreview = document.getElementById("album-import-preview");
@@ -1840,7 +1263,7 @@ function renderImportedAlbumPreview() {
             <img src="${importedAlbumDraft.img}" alt="${importedAlbumDraft.name}" class="w-full sm:w-48 h-48 object-cover rounded-xl bg-gray-800">
             <div>
                 <p class="text-sm text-pink-400 font-bold">Ready to add</p>
-                <h2 class="text-2xl font-bold mt-1">${importedAlbumDraft.name}</h2>
+                <h2 class="text-2xl font-bold mt-1">${cleanImportedAlbumName(importedAlbumDraft.artist, importedAlbumDraft.name)}</h2>
                 <p class="mt-3 text-gray-300">💰 Price: $${importedAlbumDraft.price.toFixed(2)}</p>
                 <p class="mt-1 text-gray-300">📦 Delivery: $${importedAlbumDraft.delivery.toFixed(2)}</p>
                 <p class="mt-4 text-gray-300 whitespace-pre-line">${importedAlbumDraft.content || "No contents listed."}</p>
@@ -1862,6 +1285,16 @@ function showAlbumImportEditor(showEditor) {
 if (importAlbumButton) {
     importAlbumButton.addEventListener("click", async () => {
         const url = albumImportUrl.value.trim();
+
+        const account = getCurrentAccount();
+
+        if (account?.customAlbums?.some(album =>
+            album.url?.trim().toLowerCase() === url.toLowerCase()
+        )) {
+            albumImportMessage.textContent = "⚠️ This album is already added.";
+            return;
+        }
+
         albumImportMessage.textContent = "";
 
         if (!url) {
@@ -1888,16 +1321,14 @@ if (importAlbumButton) {
             importedAlbumDraft = {
                 ...result.album,
                 id: Date.now(),
-                artist: "",
-                number: "",
-                type: "",
-                version: "",
-                member: "",
-                delivery: 0,
-                favorite: false,
-                bought: false,
-                available: true
+                url: url,
+                name: cleanImportedAlbumName(
+                    result.album.artist,
+                    result.album.name
+                ),
+                content: formatImportedContent(result.album.content || "")
             };
+
             renderImportedAlbumPreview();
             showAlbumImportEditor(false);
             albumImportModal.classList.remove("hidden");
@@ -1912,20 +1343,107 @@ if (importAlbumButton) {
     });
 }
 
+function decodeHtmlEntities(text) {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = text;
+    return textarea.value;
+}
+
+function cleanImportedAlbumName(artist, name) {
+    const cleanArtist = decodeHtmlEntities(artist || "").trim();
+    let cleanName = decodeHtmlEntities(name || "").trim();
+
+    if (cleanArtist) {
+        const artistRegex = new RegExp(
+            `^${cleanArtist.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*`,
+            "i"
+        );
+
+        cleanName = cleanName.replace(artistRegex, "");
+    }
+
+    return `${cleanArtist} ${cleanName}`.trim();
+}
+
+function formatImportedContent(content) {
+    if (!content) return "";
+
+    const preserved = [
+        "CD",
+        "NFC",
+        "DVD",
+        "QR",
+        "USB",
+        "LP",
+        "AR",
+        "VR"
+    ];
+
+    return content
+        .split(/\n+/)
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => {
+            let formatted = line.toLowerCase();
+
+            formatted = formatted.replace(/\b\w+/g, word =>
+                word.charAt(0).toUpperCase() + word.slice(1)
+            );
+
+            for (const word of preserved) {
+                const regex = new RegExp(`\\b${word}\\b`, "gi");
+                formatted = formatted.replace(regex, word);
+            }
+
+            return formatted;
+        })
+        .join("\n");
+}
+
 document.getElementById("edit-imported-album")?.addEventListener("click", () => {
-    importedAlbumName.value = importedAlbumDraft.name;
-    importedAlbumContent.value = importedAlbumDraft.content;
-    importedAlbumDelivery.value = importedAlbumDraft.delivery;
+    importedAlbumName.value = cleanImportedAlbumName(
+        importedAlbumDraft.artist,
+        importedAlbumDraft.name
+    );
+
+    importedAlbumContent.value = decodeHtmlEntities(
+        importedAlbumDraft.content || ""
+    );
+
+    importedAlbumDelivery.value = importedAlbumDraft.delivery || 0;
+
     showAlbumImportEditor(true);
 });
 
 document.getElementById("save-imported-album")?.addEventListener("click", () => {
     const delivery = Number(importedAlbumDelivery.value);
-    if (!importedAlbumName.value.trim() || !Number.isFinite(delivery) || delivery < 0) return;
 
-    importedAlbumDraft.name = importedAlbumName.value.trim();
-    importedAlbumDraft.content = importedAlbumContent.value.trim();
+    if (
+        !importedAlbumName.value.trim() ||
+        !Number.isFinite(delivery) ||
+        delivery < 0 ||
+        !importedAlbumDraft
+    ) return;
+
+    const fullName = decodeHtmlEntities(importedAlbumName.value.trim());
+
+    importedAlbumDraft.name = cleanImportedAlbumName(
+        importedAlbumDraft.artist,
+        fullName
+    ).replace(
+        new RegExp(
+            `^${importedAlbumDraft.artist.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*`,
+            "i"
+        ),
+        ""
+    ).trim();
+
+    importedAlbumDraft.content = formatImportedContent(
+        importedAlbumContent.value.trim()
+    );
+
     importedAlbumDraft.delivery = delivery;
+
     renderImportedAlbumPreview();
     showAlbumImportEditor(false);
 });
@@ -1935,18 +1453,49 @@ document.getElementById("cancel-import-album")?.addEventListener("click", closeA
 
 document.getElementById("confirm-import-album")?.addEventListener("click", () => {
     const account = getCurrentAccount();
+    albumImportMessage.textContent = "";
+
     if (!account || !importedAlbumDraft) return;
 
-    account.customAlbums = Array.isArray(account.customAlbums) ? account.customAlbums : [];
+    account.customAlbums = Array.isArray(account.customAlbums)
+        ? account.customAlbums
+        : [];
+
+    const alreadyExists = account.customAlbums.some(album => {
+        const sameUrl =
+            album.url &&
+            importedAlbumDraft.url &&
+            album.url.trim().toLowerCase() === importedAlbumDraft.url.trim().toLowerCase();
+
+        const sameAlbum =
+            album.name?.trim().toLowerCase() === importedAlbumDraft.name?.trim().toLowerCase() &&
+            album.artist?.trim().toLowerCase() === importedAlbumDraft.artist?.trim().toLowerCase();
+
+        return sameUrl || sameAlbum;
+    });
+
+    if (alreadyExists) {
+        albumImportMessage.textContent = "⚠️ You got dementia or smth? IT'S ALREADY HERE";
+        return;
+    }
+
     account.customAlbums.push({ ...importedAlbumDraft });
     albums.push({ ...importedAlbumDraft });
+
     saveAccounts();
+
     closeAlbumImportModal();
+
     albumImportUrl.value = "";
+    albumImportMessage.textContent = "";
+
     displayAlbums();
     updateDashboardCounts();
     updateDashboardAffordable();
 });
+
+
+// -- DISPLAY ALBMUS IN albums.html
 let albumsRenderVersion = 0;
 
 async function displayAlbums() {
@@ -1985,23 +1534,26 @@ async function displayAlbums() {
     );
 
     if (sortedAlbums.length === 0) {
+
         albumGrid.innerHTML = `
-            <div class="col-span-full text-center py-12">
-                <p class="text-5xl mb-4">🍃</p>
+        <div class="col-span-full text-center py-12">
+            <p class="text-5xl mb-4">🍃</p>
 
-                <p class="text-xl font-bold text-white">
-                    No albums found in that name
-                </p>
+            <p class="text-xl font-bold text-white">
+                ${searchTerm
+                ? "No albums found"
+                : "No albums yet"
+            }
+            </p>
 
-                <p class="text-gray-400 mt-2">
-                    ${
-                        searchTerm
-                        ? "Try changing your search"
-                        : ""
-                    }
-                </p>
-            </div>
-        `;
+            <p class="text-gray-400 mt-2">
+                ${searchTerm
+                ? "Try changing your search"
+                : "Add an album"
+            }
+            </p>
+        </div>
+    `;
 
         return;
     }
