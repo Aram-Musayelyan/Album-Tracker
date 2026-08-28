@@ -545,7 +545,7 @@ async function displayFavorites() {
             ${album.artist ? `${album.artist}` : ""}
             ${album.number ? `${album.number}` : ""}
             ${album.type ? `${album.type}` : ""}
-            ${album.name ? `[${album.name} ver.]` : ""}
+            ${album.name ? `${album.name}` : ""}
             ${album.version ? `(${album.version} ver.)` : ""}
             ${album.member ? `(${album.member})` : ""}
         </h2>
@@ -885,7 +885,7 @@ async function displayAffordables() {
                 ${album.artist ? `${album.artist}` : ""}
                 ${album.number ? `${album.number}` : ""}
                 ${album.type ? `${album.type}` : ""}
-                ${album.name ? `[${album.name} ver.]` : ""}
+                ${album.name ? `${album.name}` : ""}
                 ${album.version ? `(${album.version} ver.)` : ""}
                 ${album.member ? `(${album.member})` : ""}
                 </h2>
@@ -1068,7 +1068,7 @@ function displayOwned() {
             ${album.artist ? `${album.artist}` : ""}
             ${album.number ? `${album.number}` : ""}
             ${album.type ? `${album.type}` : ""}
-            ${album.name ? `[${album.name} ver.]` : ""}
+            ${album.name ? `${album.name} ` : ""}
             ${album.version ? `(${album.version} ver.)` : ""}
             ${album.member ? `(${album.member})` : ""}
         </h2>
@@ -1291,14 +1291,14 @@ if (importAlbumButton) {
         if (account?.customAlbums?.some(album =>
             album.url?.trim().toLowerCase() === url.toLowerCase()
         )) {
-            albumImportMessage.textContent = "⚠️ This album is already added.";
+            albumImportMessage.textContent = "⚠️ You got dementia or smth? IT'S ALREADY HERE";
             return;
         }
 
         albumImportMessage.textContent = "";
 
         if (!url) {
-            albumImportMessage.textContent = "Paste a Weverse or YG SELECT album URL first.";
+            albumImportMessage.textContent = "Paste an album URL";
             return;
         }
 
@@ -1645,7 +1645,7 @@ async function displayAlbums() {
             ${album.artist ? `${album.artist}` : ""}
             ${album.number ? `${album.number}` : ""}
             ${album.type ? `${album.type}` : ""}
-            ${album.name ? `[${album.name} ver.]` : ""}
+            ${album.name ? `${album.name}` : ""}
             ${album.version ? `(${album.version} ver.)` : ""}
             ${album.member ? `(${album.member})` : ""}
         </h2>
